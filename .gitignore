@@ -1,0 +1,30 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Terraform variable files
+*.tfvars
+*.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform lock file should normally be committed
+# terraform.lock.hcl
+
+# SSH private keys
+*.pem
+id_rsa
+id_rsa.*
+azure_vm
+azure_vm.*
+
+# OS files
+.DS_Store
+Thumbs.db
