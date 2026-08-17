@@ -182,3 +182,61 @@ resource "azurerm_linux_virtual_machine" "vm" {
     environment = "Learning"
   }
 }
+
+#Terraform Data Sources
+
+#A data source allows Terraform to read information about an existing resource without managing/creating that resource.
+# You don't want Terraform to create it again.
+
+# Instead:
+
+# data "azurerm_resource_group" "existing" {
+#   name = "myExistingResourceGroup"
+# }
+
+# Terraform simply asks Azure:
+
+# "Does this Resource Group exist? Give me its information."
+# This data block will only be reading that resource not able to create / update / destroy anything  only reading rights.
+
+data "azurerm_resource_group" "existing" {
+  name = "myTFResourceGroup"
+}
+
+data "azurerm_virtual_network" "existing" {
+  name                = "my-vnet"
+  resource_group_name = data.azurerm_resource_group.existing.name
+}
+
+data "azurerm_subnet" "existing_web" {
+  name                 = "web-subnet"
+  virtual_network_name = data.azurerm_virtual_network.existing.name
+  resource_group_name  = data.azurerm_resource_group.existing.name
+}
+
+############# LOCALS ########
+# What is a Local?
+
+# A local value is a value that you define once inside Terraform and reuse multiple times.A local is something you calculate or define inside Terraform.
+# doesn't create anything in Azure.
+
+# It simply creates a value inside Terraform's configuration.
+# Think of it as a Terraform-internal variable.
+
+# For example, you currently repeat:
+
+# tags = {
+#   environment = "learning"
+# }
+
+# across resources.
+
+# Instead, we can create:
+
+# locals {
+#   common_tags = {
+#     environment = "learning"
+#     project     = "terraform-azure"
+#     owner       = "devops"
+#   }
+# }

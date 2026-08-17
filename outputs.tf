@@ -21,3 +21,15 @@ output "vm_public_ip" {
   description = "Public IP address of the Linux VM"
   value       = azurerm_public_ip.vm_pip.ip_address
 }
+
+output "existing_rg_id" {
+  value = data.azurerm_resource_group.existing.id
+}
+
+output "existing_vnet_id" {
+  value = data.azurerm_virtual_network.existing.id
+}
+
+output "existing_web_subnet_id" {
+  value = data.azurerm_subnet.existing_web.id
+}
